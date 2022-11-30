@@ -4,6 +4,12 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const path = require("path");
 
+// Controllers
+const userController = require('./views/script');
+
+// routes
+app.use('/', userController);
+
 
 // Middleware
 app.use(express.static(__dirname + '/views'))
@@ -16,5 +22,5 @@ app.get("/", (req, res) => {
     res.sendFile("login.html", { root: path.join(__dirname, "views") });
 });
 
-  
+   
  

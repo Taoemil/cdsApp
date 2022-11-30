@@ -10,10 +10,27 @@ const db = new sqlite3.Database('./db.sqlite', sqlite3.OPEN_READWRITE, (err) => 
       }
   });
   
-  
+  /* drop table 
+  db.serialize(function() {
+    db.run('drop table users')
+  })
+  */
   
   // CREATE USER TABLE
   db.serialize(function() {
-      db.run('create table if not exists users (userId integer primary key, username text not null, password text not null)');
+      db.run('create table if not exists users (userId integer primary key, username text, password text)');
     });
     
+
+
+/*
+// CLOSE DB AFTER PENDING QUERIES
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Close the database connection.');
+});
+*/
+
+module.exports = db;
