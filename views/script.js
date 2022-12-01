@@ -2,11 +2,15 @@ const express = require("express");
 const router = express.Router();
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const app = express();
 var crypto = require('crypto');
 const db  = require('../context/sqlitefunctions');
 const { userSchema } = require('../validation/joi');
-const cors = require("cors");
+const fileUpload = require("express-fileupload");
+const path = require("path");
+const filesPayloadExists = require("../context/filesPayloadExists");
+const fileExtLimiter = require("../context/fileExtLimiter");
+const fileSizeLimiter = require("../context/fileSizeLimiter");
+
 
 // CREATE USER
 
@@ -16,7 +20,7 @@ const addUserToDatabase = (username, password) => {
       [username, password], 
       function(err) {
         if (err) {
-          console.error(err);
+          console.error(err); 
         }
       }
     );
@@ -90,9 +94,32 @@ router.post("/login", bodyParser.urlencoded(), async (req, res) => {
   }
 });
 
+
 // Når jeg laver get, post, delete, til bøgerne, sørg for at man kun kan gøre det hvis loggedIn = true; 
 
+router.post("/upload", 
 
+    fileUpload({ createParentPath: true }),
+    filesPayloadExists,
+    fileExtLimiter(['.png', '.jpg', '.jpeg']),
+    fileSizeLimiter, 
+    (req, res) => {
+        const files = req.files
+        console.log(files)
+
+        Object.keys(files).forEach(key => {
+            const filepath = path.join(__dirname, 'files', files[key].name)
+            files[key].mv(filepath, (err) => {
+                if (err) return res.status(500).json({ status: "error", message: err })
+            })
+        })
+
+        return res.json({ status: 'success', message: Object.keys(files).toString() })
+    
+
+}); 
+ 
 
 module.exports = router;
 
+ 

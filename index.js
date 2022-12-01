@@ -11,11 +11,10 @@ const userController = require('./views/script');
 app.use('/', userController);
 
 
-
 // Middleware
 app.use(express.static(__dirname + '/views'))
-
-
+app.use(express.json());
+ 
 
 // Start server
 app.listen(PORT, console.log(`Server is live on http://localhost:${PORT}`));
@@ -23,6 +22,8 @@ app.listen(PORT, console.log(`Server is live on http://localhost:${PORT}`));
 app.get("/", (req, res) => {
     res.sendFile("login.html", { root: path.join(__dirname, "views") });
 });
+
+
 
    
  
