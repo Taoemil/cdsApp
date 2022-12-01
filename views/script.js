@@ -55,6 +55,7 @@ const addUserToDatabase = (username, password) => {
     })
 );
 
+
   // CLIENT CREATE USER
   router.post("/createuser", bodyParser.urlencoded(), async (req, res) => {
    try {
@@ -67,7 +68,7 @@ const addUserToDatabase = (username, password) => {
     res.redirect('/login.html');
    } catch (err) {
     console.error(err);
-    res.status(500).send('You need a valid CBS-student email to create a user and acess this site.')
+    res.status(500).send('Email or password not accepted')
    }})  
 
    // CLIENT LOG IN
@@ -81,7 +82,7 @@ router.post("/login", bodyParser.urlencoded(), async (req, res) => {
   if (users[0].password === hashPassword(req.body.password)) {
       req.session.loggedIn = true;
       req.session.username = req.body.username;
-      console.log(req.session);
+      console.log(req.session.loggedIn);
       res.redirect("/frontpage.html");
   } else {
       // Sender en error 401 (unauthorized) til klienten
@@ -89,27 +90,9 @@ router.post("/login", bodyParser.urlencoded(), async (req, res) => {
   }
 });
 
-//Relevant part:
-router.get('/frontpage.html', function(req, res) {
-  var loggedin = true; //false if not loggedin
-  if (loggedin)
-      res.sendFile(__dirname + '/frontpage.html');
-  else
-      res.redirect('/login.html');
-})
-
-router.use(cors());
+// Når jeg laver get, post, delete, til bøgerne, sørg for at man kun kan gøre det hvis loggedIn = true; 
 
 
-/*
-const getOff = function (req, res) {
- const users = req.session.loggedIn = true;
-  if (users) {
-    req.session.loggedIn = false;
-    res.redirect("login.html");
-  }
-}
-*/
 
 module.exports = router;
 

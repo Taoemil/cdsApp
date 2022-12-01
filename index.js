@@ -11,8 +11,10 @@ const userController = require('./views/script');
 app.use('/', userController);
 
 
+
 // Middleware
 app.use(express.static(__dirname + '/views'))
+
 
 
 // Start server
