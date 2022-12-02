@@ -59,6 +59,7 @@ const addUserToDatabase = (username, password) => {
     })
 );
 
+ 
 
   // CLIENT CREATE USER
   router.post("/createuser", bodyParser.urlencoded(), async (req, res) => {
@@ -76,7 +77,8 @@ const addUserToDatabase = (username, password) => {
    }})  
 
    // CLIENT LOG IN
-  
+
+
 router.post("/login", bodyParser.urlencoded(), async (req, res) => {
    const users = await getUserByUsername(req.body.username);
    console.log({users});
@@ -99,6 +101,7 @@ router.post("/login", bodyParser.urlencoded(), async (req, res) => {
 
 router.post("/upload", 
 
+    
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
     fileExtLimiter(['.png', '.jpg', '.jpeg']),
@@ -106,9 +109,9 @@ router.post("/upload",
     (req, res) => {
         const files = req.files
         console.log(files)
-
+  
         Object.keys(files).forEach(key => {
-            const filepath = path.join(__dirname, 'files', files[key].name)
+           const filepath = path.join(__dirname, 'files', files[key].name)
             files[key].mv(filepath, (err) => {
                 if (err) return res.status(500).json({ status: "error", message: err })
             })
@@ -116,7 +119,7 @@ router.post("/upload",
 
         return res.json({ status: 'success', message: Object.keys(files).toString() })
     
-
+ 
 }); 
  
 

@@ -10,7 +10,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.5rem;
-            background-color: #333;
+            background-color: rgb(172, 158, 235);
             color: whitesmoke;
         }
 
@@ -37,6 +37,14 @@
     <h2></h2>
     <h3></h3>
     <script>
+
+
+    const user = session.loggedIn = true; //Vi finder brugeren fra localstorage
+    
+    if (!user) { //Hvis brugeren ikke findes
+        location.href = "/logind.html" // skal den føres videre til logind siden. 
+    } 
+    
         const form = document.getElementById('uploadForm')
 
         const sendFiles = async () => {
@@ -70,6 +78,9 @@
             sendFiles()
         })
     </script>
+
+<a class="form__link" href="https://github.com/Taoemil/cdsApp/tree/main/views/files" id="linkLogin">Access all uploaded files from Github</a>
+
 </body>
 
 </html>
