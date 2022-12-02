@@ -17,14 +17,13 @@
   },
   "homepage": "https://github.com/Taoemil/cdsApp#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
+    "http-proxy": "^1.18.1",
     "joi": "^17.7.0",
     "nodemon": "^2.0.20",
+    "seaport": "^2.0.9",
     "sqlite3": "^5.1.2"
   }
 }
