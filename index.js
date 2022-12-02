@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 4000;
 const path = require("path");
+const https = require("https");
+const fs = require("fs");
+
 
 // Controllers
 const userController = require('./views/script');
@@ -17,7 +20,21 @@ app.use(express.json());
  
 
 // Start server
-app.listen(PORT, console.log(`Server is live on http://localhost:${PORT}`));
+
+const server = https.createServer({
+
+    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+
+},
+app
+)
+ 
+server.listen(PORT, () => {
+    console.log(`Server is live on https://localhost:${PORT}`);
+}) 
+
+
 
 app.get("/", (req, res) => {
     res.sendFile("login.html", { root: path.join(__dirname, "views") });
