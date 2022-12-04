@@ -37,14 +37,6 @@
     <h2></h2>
     <h3></h3>
     <script>
-
-
-    const user = session.loggedIn = true; //Vi finder brugeren fra localstorage
-    
-    if (!user) { //Hvis brugeren ikke findes
-        location.href = "/logind.html" // skal den føres videre til logind siden. 
-    } 
-    
         const form = document.getElementById('uploadForm')
 
         const sendFiles = async () => {
@@ -57,7 +49,7 @@
                 formData.append(myFiles.item(key).name, myFiles.item(key))
             })
 
-            const response = await fetch('http://localhost:4000/upload', {
+            const response = await fetch('https://localhost:4000/upload', {
                 method: 'POST',
                 body: formData
             })
