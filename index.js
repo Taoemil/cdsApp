@@ -21,7 +21,8 @@ app.use(express.json());
 
 // Start server
 
-
+// HTTPS kommenteres ud igen, da det ikke fungere godt i browser med selv-generede nøgler og certifikater
+/*
 const server = https.createServer({
 
     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
@@ -32,10 +33,10 @@ const server = https.createServer({
 },
 app
 )
- 
+ */
 
-server.listen(PORT, () => {
-    console.log(`Server is live on https://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is live on http://localhost:${PORT}`);
 }) 
 
 

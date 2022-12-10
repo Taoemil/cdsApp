@@ -13,7 +13,7 @@ const fileSizeLimiter = require("../context/fileSizeLimiter");
 
 
 // CREATE USER
-
+// Funktion fra øvelsestime
 const addUserToDatabase = (username, password) => {
     db.run(
       'insert into users (username, password) values (?, ?)', 
@@ -27,6 +27,7 @@ const addUserToDatabase = (username, password) => {
   }
 
   // GET USER (CHECK IF THEY EXIST)
+  // Funktion fra øvelsestime
   const getUserByUsername = (userName) => {
     return new Promise((resolve, reject) => {  
       db.all( 
@@ -44,6 +45,7 @@ const addUserToDatabase = (username, password) => {
   }
   
   // HASH PASSWORD
+  // Fra øvelsestime
   const hashPassword = (password) => {
     const md5sum = crypto.createHash('md5');
     const salt = 'Some salt for the hash';
@@ -51,6 +53,7 @@ const addUserToDatabase = (username, password) => {
   }
 
   // EXPRESS SESSION
+  // Fra øvelsestime
   router.use(
     session({
         secret: "Secret-key",
@@ -62,6 +65,7 @@ const addUserToDatabase = (username, password) => {
  
 
   // CLIENT CREATE USER
+  // Fra øvelsestime med små ændringer
   router.post("/createuser", bodyParser.urlencoded(), async (req, res) => {
    try {
     const user = await getUserByUsername(req.body.username)
@@ -78,7 +82,7 @@ const addUserToDatabase = (username, password) => {
 
    // CLIENT LOG IN
 
-
+  // Fra øvelsestime med små ændringer
 router.post("/login", bodyParser.urlencoded(), async (req, res) => {
    const users = await getUserByUsername(req.body.username);
    console.log({users});
@@ -97,11 +101,10 @@ router.post("/login", bodyParser.urlencoded(), async (req, res) => {
 });
 
 
-// Når jeg laver get, post, delete, til bøgerne, sørg for at man kun kan gøre det hvis loggedIn = true; 
-
+// USER UPLOAD FILE
+// KILDE = https://github.com/gitdagray/node_file_uploader, https://www.youtube.com/watch?v=4pmkQjsKJ-U
 router.post("/upload", 
 
-    
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
     fileExtLimiter(['.png', '.jpg', '.jpeg']),
