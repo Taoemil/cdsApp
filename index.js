@@ -1,7 +1,7 @@
 // Server setup
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5050;
 const path = require("path");
 const https = require("https");
 const fs = require("fs");
@@ -21,6 +21,7 @@ app.use(express.json());
 
 // Start server
 
+
 const server = https.createServer({
 
     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
@@ -32,6 +33,7 @@ const server = https.createServer({
 app
 )
  
+
 server.listen(PORT, () => {
     console.log(`Server is live on https://localhost:${PORT}`);
 }) 

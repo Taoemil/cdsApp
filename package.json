@@ -1,7 +1,7 @@
 {
   "name": "cdsapp",
   "version": "1.0.0",
-  "description": "no description",
+  "description": "A simple NodeJS application with a secure login system, and a simple fileupload.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +23,7 @@
     "http-proxy": "^1.18.1",
     "joi": "^17.7.0",
     "nodemon": "^2.0.20",
+    "nonce-express": "^1.0.2",
     "sqlite3": "^5.1.2"
   }
 }
